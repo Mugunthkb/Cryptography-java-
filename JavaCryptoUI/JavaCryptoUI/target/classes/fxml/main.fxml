@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cryptoui.controller.CryptoController"
+            prefHeight="700.0" prefWidth="1000.0"
+            stylesheets="/css/styles.css">
+    
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            
+            <Label text="Cryptocurrency Trading Simulator" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="24.0"/>
+                </font>
+            </Label>
+            
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Username:" styleClass="label-header"/>
+                    <Label fx:id="usernameLabel" text="Demo User" styleClass="label-value"/>
+                </VBox>
+                
+                <VBox spacing="5">
+                    <Label text="Account Balance:" styleClass="label-header"/>
+                    <Label fx:id="balanceLabel" text="$10,000.00" styleClass="label-value"/>
+                </VBox>
+                
+                <VBox spacing="5">
+                    <Label text="Portfolio Value:" styleClass="label-header"/>
+                    <Label fx:id="portfolioValueLabel" text="$0.00" styleClass="label-value"/>
+                </VBox>
+                
+                <VBox spacing="5">
+                    <Label text="Total Worth:" styleClass="label-header"/>
+                    <Label fx:id="totalWorthLabel" text="$10,000.00" styleClass="label-value"/>
+                </VBox>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <Button fx:id="resetAccountButton" text="Reset Account" styleClass="reset-button"/>
+            </HBox>
+            
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Market Data">
+                <VBox spacing="10">
+                    <padding>
+                        <Insets top="10" right="15" bottom="15" left="15"/>
+                    </padding>
+                    
+                    <TableView fx:id="marketTableView" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="symbolColumn" text="Symbol" prefWidth="100"/>
+                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
+                            <TableColumn fx:id="priceColumn" text="Price" prefWidth="150"/>
+                            <TableColumn fx:id="changeColumn" text="24h Change" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <Tab text="Trade">
+                <GridPane hgap="20" vgap="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0"/>
+                    </rowConstraints>
+                    
+                    <!-- Left column - Trade Form -->
+                    <VBox spacing="20" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="6">
+                        <Label text="Execute Trade" styleClass="section-header">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        
+                        <VBox spacing="10">
+                            <Label text="Select Cryptocurrency" styleClass="form-label"/>
+                            <ComboBox fx:id="cryptoComboBox" prefWidth="300"/>
+                        </VBox>
+                        
+                        <VBox spacing="10">
+                            <Label text="Current Price" styleClass="form-label"/>
+                            <Label fx:id="currentPriceLabel" text="$0.00" styleClass="price-label"/>
+                        </VBox>
+                        
+                        <VBox spacing="10">
+                            <Label text="Your Holdings" styleClass="form-label"/>
+                            <Label fx:id="cryptoHoldingsLabel" text="0.000000 BTC" styleClass="holdings-label"/>
+                        </VBox>
+                        
+                        <VBox spacing="10">
+                            <Label text="Amount to Trade" styleClass="form-label"/>
+                            <TextField fx:id="amountTextField" promptText="Enter amount"/>
+                        </VBox>
+                        
+                        <VBox spacing="10">
+                            <Label text="Total Cost/Value" styleClass="form-label"/>
+                            <Label fx:id="totalCostLabel" text="$0.00" styleClass="total-label"/>
+                        </VBox>
+                        
+                        <HBox spacing="10">
+                            <Button fx:id="buyButton" text="Buy" styleClass="buy-button" prefWidth="100"/>
+                            <Button fx:id="sellButton" text="Sell" styleClass="sell-button" prefWidth="100"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Right column - Crypto Info -->
+                    <VBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="6">
+                        <Label text="Cryptocurrency Information" styleClass="section-header">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        
+                        <Label fx:id="cryptoDescriptionLabel" wrapText="true" styleClass="description-label"/>
+                        
+                        <Separator/>
+                        
+                        <Label text="Transaction History" styleClass="section-header">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        
+                        <TableView fx:id="transactionTableView" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="transactionTimeColumn" text="Time" prefWidth="120"/>
+                                <TableColumn fx:id="transactionTypeColumn" text="Type" prefWidth="60"/>
+                                <TableColumn fx:id="transactionSymbolColumn" text="Symbol" prefWidth="70"/>
+                                <TableColumn fx:id="transactionAmountColumn" text="Amount" prefWidth="80"/>
+                                <TableColumn fx:id="transactionPriceColumn" text="Price" prefWidth="80"/>
+                                <TableColumn fx:id="transactionTotalColumn" text="Total" prefWidth="80"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </GridPane>
+            </Tab>
+        </TabPane>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="status-bar">
+            <padding>
+                <Insets top="5" right="15" bottom="5" left="15"/>
+            </padding>
+            <Label text="© 2025 CryptoUI Simulator - For educational purposes only"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane> 
